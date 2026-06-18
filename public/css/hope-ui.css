@@ -1,0 +1,448 @@
+/* ============================================================
+   CCTV RMI — Design System v2.0
+   Base: Hope UI · Font: Lexend Deca · Accent: #4361ee (Indigo Blue)
+   ============================================================ */
+
+:root {
+    /* Typography */
+    --font-primary: 'Lexend Deca', sans-serif;
+    --font-stack: 'Lexend Deca', system-ui, -apple-system, sans-serif;
+    --font-size-xs:   11px;
+    --font-size-sm:   13px;
+    --font-size-md:   15px;
+    --font-size-lg:   18px;
+    --font-size-xl:   22px;
+    --font-size-2xl:  28px;
+    --font-size-3xl:  36px;
+
+    /* Brand Palette */
+    --color-brand:         #4361ee;
+    --color-brand-light:   rgba(67, 97, 238, 0.10);
+    --color-brand-hover:   #3a0ca3;
+
+    /* Text */
+    --color-text-primary:   #6c7993;
+    --color-text-secondary: #8a94a6;
+    --color-text-dark:      #232d42;
+    --color-text-muted:     #adb5bd;
+
+    /* Surfaces */
+    --color-bg-page:   #f0f2f5;
+    --color-bg-card:   #ffffff;
+    --color-bg-input:  #ffffff;
+    --color-bg-soft:   #f8f9fc;
+    --color-border:    rgba(0, 0, 0, 0.06);
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 28px;
+    --space-8: 32px;
+
+    /* Radius */
+    --radius-xs: 6px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-card:  0 2px 12px rgba(35, 45, 66, 0.06);
+    --shadow-hover: 0 8px 24px rgba(35, 45, 66, 0.12);
+    --shadow-brand: 0 8px 20px rgba(67, 97, 238, 0.30);
+    --shadow-navbar: 0 1px 0 var(--color-border);
+
+    /* Transitions */
+    --ease-fast:   200ms ease;
+    --ease-normal: 300ms ease;
+    --ease-slow:   400ms ease;
+
+    /* ── Backward-compatibility aliases (used in existing views) ── */
+    --color-text-tertiary:  var(--color-text-dark);
+    --color-text-inverse:   var(--color-brand);
+    --color-surface-muted:  var(--color-bg-card);
+    --color-surface-raised: var(--color-bg-page);
+    --shadow-1: var(--shadow-card);
+    --shadow-2: var(--shadow-card);
+    --shadow-4: var(--shadow-brand);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: var(--font-stack);
+    font-size: var(--font-size-md);
+    background-color: var(--color-bg-page);
+    color: var(--color-text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-dark);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+h1 { font-size: var(--font-size-3xl); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-md); }
+h6 { font-size: var(--font-size-sm); }
+
+a { color: var(--color-brand); text-decoration: none; }
+a:hover { color: var(--color-brand-hover); }
+
+/* ============================================================
+   LAYOUT: SIDEBAR (icon + label, 90px)
+   ============================================================ */
+.sidebar {
+    width: 90px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+    background-color: var(--color-bg-card);
+    border-right: 1px solid var(--color-border);
+    box-shadow: 2px 0 12px rgba(35, 45, 66, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform var(--ease-normal);
+}
+
+/* Logo area */
+.sidebar-brand {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+.sidebar-brand-name { display: none; }
+
+/* Nav list */
+.sidebar-menu {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0 var(--space-2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.sidebar-menu-item {
+    width: 100%;
+}
+
+/* Each nav link: icon on top, label below */
+.sidebar-menu-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    height: 68px;
+    padding: 0;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--ease-fast), color var(--ease-fast);
+    position: relative;
+}
+
+.sidebar-menu-item a i {
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.sidebar-menu-item a span {
+    font-size: 9.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-align: center;
+    line-height: 1;
+}
+
+/* Hover */
+.sidebar-menu-item a:hover {
+    background-color: var(--color-brand-light);
+    color: var(--color-brand);
+}
+
+/* Active — filled brand tile with left accent bar */
+.sidebar-menu-item.active a {
+    background-color: var(--color-brand-light);
+    color: var(--color-brand);
+    font-weight: 600;
+}
+.sidebar-menu-item.active a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 36px;
+    background-color: var(--color-brand);
+    border-radius: 0 4px 4px 0;
+}
+
+/* ============================================================
+   LAYOUT: MAIN CONTENT
+   ============================================================ */
+.main-content {
+    margin-left: 90px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-page);
+}
+
+/* ============================================================
+   LAYOUT: NAVBAR (top bar)
+   ============================================================ */
+.navbar-custom {
+    background-color: var(--color-bg-card);
+    padding: 0 var(--space-6);
+    height: 64px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* ============================================================
+   LAYOUT: CONTENT BODY
+   ============================================================ */
+.content-body {
+    padding: var(--space-6) var(--space-7);
+    flex: 1;
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card-custom {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    margin-bottom: var(--space-6);
+    transition: transform var(--ease-fast), box-shadow var(--ease-fast);
+}
+
+.card-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-custom-header {
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-custom-body {
+    padding: var(--space-6);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary-custom {
+    background-color: var(--color-brand);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-5);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.2px;
+    transition: background-color var(--ease-fast), transform var(--ease-fast), box-shadow var(--ease-fast);
+    box-shadow: var(--shadow-brand);
+    cursor: pointer;
+}
+.btn-primary-custom:hover {
+    background-color: var(--color-brand-hover);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(67, 97, 238, 0.40);
+}
+.btn-primary-custom:active  { transform: translateY(0); }
+.btn-primary-custom:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+}
+
+.btn-secondary-custom {
+    background-color: var(--color-bg-soft);
+    color: var(--color-text-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-5);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    transition: background-color var(--ease-fast), color var(--ease-fast);
+    cursor: pointer;
+}
+.btn-secondary-custom:hover {
+    background-color: #e9ecf2;
+    color: var(--color-text-dark);
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.badge-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px var(--space-3);
+    border-radius: var(--radius-xs);
+    font-weight: 600;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.badge-success   { background-color: rgba(25, 135, 84, 0.10); color: #198754; }
+.badge-danger    { background-color: rgba(220, 53, 69, 0.10); color: #dc3545; }
+.badge-warning   { background-color: rgba(255, 145, 0, 0.12); color: #e07000; }
+.badge-info      { background-color: rgba(13, 202, 240, 0.10); color: #0a9db8; }
+.badge-secondary { background-color: rgba(108, 117, 125, 0.10); color: #6c757d; }
+.badge-brand     { background-color: var(--color-brand-light); color: var(--color-brand); }
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.table-custom {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-text-primary);
+    border-collapse: collapse;
+}
+
+.table-custom th {
+    background-color: var(--color-bg-soft);
+    color: var(--color-text-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.5px;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+}
+
+.table-custom td {
+    padding: var(--space-4);
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+}
+
+.table-custom tbody tr {
+    transition: background-color var(--ease-fast);
+}
+.table-custom tbody tr:last-child td { border-bottom: none; }
+
+.table-custom tbody tr:hover {
+    background-color: var(--color-brand-light);
+}
+
+/* ============================================================
+   FORMS & INPUTS
+   ============================================================ */
+.form-control-custom {
+    display: block;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-stack);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-input);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
+    appearance: none;
+}
+
+.form-control-custom:focus {
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-input);
+    border-color: var(--color-brand);
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.16);
+}
+
+.form-control-custom::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* ============================================================
+   PAGE HEADER COMPONENT
+   ============================================================ */
+.page-header {
+    margin-bottom: var(--space-6);
+}
+.page-header h1,
+.page-header h2,
+.page-header h3,
+.page-header h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 4px;
+}
+.page-header .page-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   METRIC / STAT CARDS
+   ============================================================ */
+.metric-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }

@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Enums;
+
+/**
+ * Class InvoiceStatus
+ * 
+ * Represents the lifecycle status of an invoice.
+ * 
+ * @package App\Enums
+ */
+enum InvoiceStatus: string
+{
+    case Draft = 'draft';
+    case Sent = 'sent';
+    case Paid = 'paid';
+    case Overdue = 'overdue';
+    case Cancelled = 'cancelled';
+}
