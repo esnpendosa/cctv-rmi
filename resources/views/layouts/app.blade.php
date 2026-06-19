@@ -185,14 +185,7 @@
     
     <script>
         document.getElementById('sidebarToggle')?.addEventListener('click', function() {
-            const sidebar = document.getElementById('sidebarMenu');
-            if (sidebar.style.transform === 'translateX(0px)' || sidebar.classList.contains('show')) {
-                sidebar.style.transform = 'translateX(-260px)';
-                sidebar.classList.remove('show');
-            } else {
-                sidebar.style.transform = 'translateX(0px)';
-                sidebar.classList.add('show');
-            }
+            document.getElementById('sidebarMenu')?.classList.toggle('show');
         });
     </script>
     @livewireScripts

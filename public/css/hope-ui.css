@@ -144,6 +144,11 @@ a:hover { color: var(--color-brand-hover); }
     flex-direction: column;
     gap: 2px;
     flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+.sidebar-menu::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 
 .sidebar-menu-item {
@@ -715,3 +720,32 @@ select.form-control, select.form-select, select.form-control-custom {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* ============================================================
+   RESPONSIVE LAYOUT & SIDEBAR TOGGLE
+   ============================================================ */
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: 80px;
+        box-shadow: 4px 0 24px rgba(35, 45, 66, 0.15);
+    }
+    .sidebar.show {
+        transform: translateX(0) !important;
+    }
+    .main-content {
+        margin-left: 0 !important;
+    }
+    .navbar-custom {
+        padding: 0 var(--space-4) !important;
+    }
+    .content-body {
+        padding: var(--space-4) var(--space-4) !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        transform: translateX(0) !important;
+    }
+}
