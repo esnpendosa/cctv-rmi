@@ -375,34 +375,227 @@ a:hover { color: var(--color-brand-hover); }
 }
 
 /* ============================================================
-   FORMS & INPUTS
+   FORMS & INPUTS (Global Bootstrap Overrides)
    ============================================================ */
-.form-control-custom {
+.form-control, .form-select, .form-control-custom {
     display: block;
     width: 100%;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--font-size-sm);
-    font-family: var(--font-stack);
+    padding: 10px 14px !important;
+    font-size: var(--font-size-sm) !important;
+    font-family: var(--font-stack) !important;
     font-weight: 400;
     line-height: 1.5;
-    color: var(--color-text-dark);
-    background-color: var(--color-bg-input);
-    border: 1.5px solid var(--color-border);
+    color: var(--color-text-dark) !important;
+    background-color: var(--color-bg-input) !important;
+    border: 1.5px solid var(--color-border) !important;
+    border-radius: var(--radius-sm) !important;
+    transition: border-color var(--ease-fast), box-shadow var(--ease-fast) !important;
+    box-shadow: none !important;
+}
+
+select.form-control, select.form-select, select.form-control-custom {
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238a94a6' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 12px 12px !important;
+    padding-right: 40px !important;
+}
+
+.form-control:focus, .form-select:focus, .form-control-custom:focus {
+    color: var(--color-text-dark) !important;
+    background-color: var(--color-bg-input) !important;
+    border-color: var(--color-brand) !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.12) !important;
+}
+
+.form-control::placeholder, .form-control-custom::placeholder {
+    color: var(--color-text-muted) !important;
+}
+
+/* ============================================================
+   BUTTONS (Global Overrides)
+   ============================================================ */
+.btn {
+    font-family: var(--font-stack);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    padding: 10px 20px;
     border-radius: var(--radius-sm);
-    transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
-    appearance: none;
+    transition: all var(--ease-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: none;
+}
+.btn-sm {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+    border-radius: var(--radius-xs) !important;
+}
+.btn-primary {
+    background-color: var(--color-brand) !important;
+    border-color: var(--color-brand) !important;
+    color: #ffffff !important;
+    box-shadow: var(--shadow-brand) !important;
+}
+.btn-primary:hover {
+    background-color: var(--color-brand-hover) !important;
+    border-color: var(--color-brand-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(67, 97, 238, 0.35) !important;
+}
+.btn-success {
+    background-color: #22c55e !important;
+    border-color: #22c55e !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important;
+}
+.btn-success:hover {
+    background-color: #16a34a !important;
+    border-color: #16a34a !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35) !important;
+}
+.btn-danger {
+    background-color: #ef4444 !important;
+    border-color: #ef4444 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2) !important;
+}
+.btn-danger:hover {
+    background-color: #dc2626 !important;
+    border-color: #dc2626 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35) !important;
+}
+.btn-warning {
+    background-color: #f59e0b !important;
+    border-color: #f59e0b !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2) !important;
+}
+.btn-warning:hover {
+    background-color: #d97706 !important;
+    border-color: #d97706 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35) !important;
+}
+.btn-secondary {
+    background-color: var(--color-bg-soft) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-text-dark) !important;
+}
+.btn-secondary:hover {
+    background-color: #e9ecf2 !important;
+    border-color: var(--color-border) !important;
+    transform: translateY(-1px);
 }
 
-.form-control-custom:focus {
+/* ============================================================
+   GLOBAL TABLE BOOTSTRAP OVERRIDES
+   ============================================================ */
+.table {
+    width: 100%;
+    margin-bottom: 0;
+    color: var(--color-text-primary);
+    border-collapse: collapse;
+}
+.table th {
+    background-color: var(--color-bg-soft) !important;
     color: var(--color-text-dark);
-    background-color: var(--color-bg-input);
-    border-color: var(--color-brand);
-    outline: 0;
-    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.16);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: var(--space-4) var(--space-4) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    white-space: nowrap;
+}
+.table td {
+    padding: var(--space-4) !important;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border) !important;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dark);
+}
+.table tbody tr {
+    transition: background-color var(--ease-fast);
+}
+.table tbody tr:hover {
+    background-color: rgba(67, 97, 238, 0.02) !important;
 }
 
-.form-control-custom::placeholder {
-    color: var(--color-text-muted);
+/* ============================================================
+   GLOBAL BADGE BOOTSTRAP OVERRIDES
+   ============================================================ */
+.badge {
+    font-family: var(--font-stack);
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+    border-radius: var(--radius-xs) !important;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid transparent;
+}
+.badge.bg-success {
+    background-color: rgba(34, 197, 94, 0.08) !important;
+    color: #22c55e !important;
+    border-color: rgba(34, 197, 94, 0.12) !important;
+}
+.badge.bg-danger {
+    background-color: rgba(239, 68, 68, 0.08) !important;
+    color: #ef4444 !important;
+    border-color: rgba(239, 68, 68, 0.12) !important;
+}
+.badge.bg-warning {
+    background-color: rgba(245, 158, 11, 0.08) !important;
+    color: #f59e0b !important;
+    border-color: rgba(245, 158, 11, 0.12) !important;
+}
+.badge.bg-info {
+    background-color: rgba(6, 182, 212, 0.08) !important;
+    color: #06b6d4 !important;
+    border-color: rgba(6, 182, 212, 0.12) !important;
+}
+.badge.bg-secondary {
+    background-color: rgba(100, 116, 139, 0.08) !important;
+    color: #64748b !important;
+    border-color: rgba(100, 116, 139, 0.12) !important;
+}
+.badge.bg-primary {
+    background-color: rgba(67, 97, 238, 0.08) !important;
+    color: var(--color-brand) !important;
+    border-color: rgba(67, 97, 238, 0.12) !important;
+}
+
+/* ============================================================
+   GLOBAL CARD BOOTSTRAP OVERRIDES
+   ============================================================ */
+.card {
+    background-color: var(--color-bg-card) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-card) !important;
+    transition: transform var(--ease-fast), box-shadow var(--ease-fast) !important;
+}
+.card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+.card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    padding: var(--space-5) var(--space-6) !important;
+}
+.card-body {
+    padding: var(--space-6) !important;
 }
 
 /* ============================================================
@@ -437,6 +630,82 @@ a:hover { color: var(--color-brand-hover); }
     justify-content: center;
     font-size: 1.4rem;
     flex-shrink: 0;
+}
+
+/* Premium card status highlights */
+.card-metric {
+    border-left: 4px solid var(--color-brand) !important;
+}
+.card-metric-success {
+    border-left: 4px solid #22c55e !important;
+}
+.card-metric-danger {
+    border-left: 4px solid #ef4444 !important;
+}
+.card-metric-warning {
+    border-left: 4px solid #f59e0b !important;
+}
+
+/* Custom Metric Icon Wrapper */
+.metric-icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.metric-icon-primary {
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.08), rgba(67, 97, 238, 0.20));
+    color: var(--color-brand);
+    border: 1px solid rgba(67, 97, 238, 0.15);
+}
+.metric-icon-success {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.20));
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.15);
+}
+.metric-icon-danger {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.20));
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.15);
+}
+.metric-icon-warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.20));
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.card-custom:hover .metric-icon-wrap {
+    transform: scale(1.08);
+}
+
+/* Sidebar micro-animations */
+.sidebar-menu-item a i {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.sidebar-menu-item a:hover i {
+    transform: translateY(-2px) scale(1.1);
+}
+
+/* Leaflet Popup Premium Theme */
+.leaflet-popup-content-wrapper {
+    background: #ffffff !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 10px 30px rgba(35, 45, 66, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    padding: 2px !important;
+}
+.leaflet-popup-tip {
+    background: #ffffff !important;
+    box-shadow: 0 10px 30px rgba(35, 45, 66, 0.15) !important;
+}
+.leaflet-container a.leaflet-popup-close-button {
+    color: var(--color-text-secondary) !important;
+    padding: 8px 10px 0 0 !important;
+    font-size: 16px !important;
 }
 
 /* ============================================================

@@ -3,56 +3,56 @@
     <div class="row">
         <!-- Total CCTV Card -->
         <div class="col-md-3 col-sm-6">
-            <div class="card-custom">
+            <div class="card-custom card-metric">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
                         <span class="text-uppercase text-muted fw-bold" style="font-size: var(--font-size-xs);">Total Kamera</span>
-                        <h3 class="mb-0 mt-1" style="color: var(--color-text-tertiary);">{{ $cameraStats['total'] }}</h3>
+                        <h3 class="mb-0 mt-1" style="color: var(--color-text-tertiary); font-weight: 700;">{{ $cameraStats['total'] }}</h3>
                     </div>
-                    <div class="rounded bg-primary-subtle p-3 text-primary d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
-                        <i class="bi bi-camera-video fs-4"></i>
+                    <div class="metric-icon-wrap metric-icon-primary">
+                        <i class="bi bi-camera-video"></i>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Online CCTV Card -->
         <div class="col-md-3 col-sm-6">
-            <div class="card-custom">
+            <div class="card-custom card-metric-success">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
                         <span class="text-uppercase text-muted fw-bold" style="font-size: var(--font-size-xs);">Kamera Online</span>
-                        <h3 class="mb-0 mt-1 text-success">{{ $cameraStats['online'] }}</h3>
+                        <h3 class="mb-0 mt-1 text-success" style="font-weight: 700;">{{ $cameraStats['online'] }}</h3>
                     </div>
-                    <div class="rounded bg-success-subtle p-3 text-success d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
-                        <i class="bi bi-cloud-check fs-4"></i>
+                    <div class="metric-icon-wrap metric-icon-success">
+                        <i class="bi bi-cloud-check"></i>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Offline CCTV Card -->
         <div class="col-md-3 col-sm-6">
-            <div class="card-custom">
+            <div class="card-custom card-metric-danger">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
                         <span class="text-uppercase text-muted fw-bold" style="font-size: var(--font-size-xs);">Kamera Offline</span>
-                        <h3 class="mb-0 mt-1 text-danger">{{ $cameraStats['offline'] }}</h3>
+                        <h3 class="mb-0 mt-1 text-danger" style="font-weight: 700;">{{ $cameraStats['offline'] }}</h3>
                     </div>
-                    <div class="rounded bg-danger-subtle p-3 text-danger d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
-                        <i class="bi bi-cloud-slash fs-4"></i>
+                    <div class="metric-icon-wrap metric-icon-danger">
+                        <i class="bi bi-cloud-slash"></i>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Low Stock Alerts Card -->
         <div class="col-md-3 col-sm-6">
-            <div class="card-custom">
+            <div class="card-custom card-metric-warning">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
                         <span class="text-uppercase text-muted fw-bold" style="font-size: var(--font-size-xs);">Menipis (Stok)</span>
-                        <h3 class="mb-0 mt-1 {{ $lowStockCount > 0 ? 'text-warning' : '' }}">{{ $lowStockCount }} Item</h3>
+                        <h3 class="mb-0 mt-1 {{ $lowStockCount > 0 ? 'text-warning' : '' }}" style="font-weight: 700;">{{ $lowStockCount }} Item</h3>
                     </div>
-                    <div class="rounded bg-warning-subtle p-3 text-warning d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
-                        <i class="bi bi-exclamation-triangle fs-4"></i>
+                    <div class="metric-icon-wrap metric-icon-warning">
+                        <i class="bi bi-exclamation-triangle"></i>
                     </div>
                 </div>
             </div>
@@ -160,36 +160,44 @@
         document.addEventListener('DOMContentLoaded', function() {
             const map = L.map('cctvMap').setView([-6.2088, 106.8456], 11); // Center in Jakarta
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors © CartoDB'
             }).addTo(map);
 
             const locations = @json($locations);
             
             locations.forEach(function(loc) {
-                let color = 'green';
+                let color = '#22c55e'; // Online green
                 if (loc.offline_count > 0 && loc.online_count > 0) {
-                    color = 'orange';
+                    color = '#f59e0b'; // Mixed orange
                 } else if (loc.offline_count > 0 && loc.online_count === 0) {
-                    color = 'red';
+                    color = '#ef4444'; // Offline red
                 }
 
-                // Simple styled SVG marker representing status
                 const icon = L.divIcon({
-                    html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
+                    html: `<div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid #ffffff; box-shadow: 0 2px 8px rgba(35,45,66,0.35);"></div>`,
                     className: 'custom-div-icon',
-                    iconSize: [15, 15],
+                    iconSize: [14, 14],
                     iconAnchor: [7, 7]
                 });
 
                 const popupContent = `
-                    <div style="font-family: var(--font-primary);">
-                        <h6 style="margin: 0 0 5px 0; color: var(--color-text-tertiary); font-weight: 700;">${loc.name}</h6>
-                        <p style="margin: 0 0 10px 0; font-size: 11px; color: var(--color-text-secondary);">${loc.address}</p>
-                        <div style="font-size: 11px;">
-                            <strong>Kamera:</strong> ${loc.cameras_count}<br>
-                            <span style="color: green;">✔ Online: ${loc.online_count}</span><br>
-                            <span style="color: red;">❌ Offline: ${loc.offline_count}</span>
+                    <div style="font-family: var(--font-stack); padding: 4px; min-width: 180px;">
+                        <div style="font-size: 13px; font-weight: 700; color: var(--color-text-dark); margin-bottom: 2px;">${loc.name}</div>
+                        <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 10px; line-height: 1.3;"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${loc.address}</div>
+                        <div style="border-top: 1px solid var(--color-border); padding-top: 8px; display: flex; flex-direction: column; gap: 4px; font-size: 11px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="text-muted">Total CCTV:</span>
+                                <span class="fw-bold text-dark">${loc.cameras_count}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #22c55e; font-weight: 500;">✔ Online:</span>
+                                <span class="fw-bold" style="color: #22c55e;">${loc.online_count}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #ef4444; font-weight: 500;">❌ Offline:</span>
+                                <span class="fw-bold" style="color: #ef4444;">${loc.offline_count}</span>
+                            </div>
                         </div>
                     </div>
                 `;
