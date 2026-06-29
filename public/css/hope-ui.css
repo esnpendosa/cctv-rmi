@@ -78,12 +78,12 @@
 
 body {
     font-family: var(--font-stack);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     background-color: var(--color-bg-page);
     color: var(--color-text-primary);
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -216,10 +216,13 @@ a:hover { color: var(--color-brand-hover); }
    ============================================================ */
 .main-content {
     margin-left: 90px;
+    width: calc(100% - 90px);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: var(--color-bg-page);
+    min-width: 0; /* Prevents flex content from stretching container width */
+    overflow-x: hidden;
 }
 
 /* ============================================================
@@ -255,16 +258,15 @@ a:hover { color: var(--color-brand-hover); }
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-card);
     margin-bottom: var(--space-6);
-    transition: transform var(--ease-fast), box-shadow var(--ease-fast);
+    transition: border-color var(--ease-fast);
 }
 
 .card-custom:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+    border-color: rgba(67, 97, 238, 0.20);
 }
 
 .card-custom-header {
-    padding: var(--space-5) var(--space-6);
+    padding: var(--space-4) var(--space-5);
     border-bottom: 1px solid var(--color-border);
     display: flex;
     justify-content: space-between;
@@ -272,7 +274,7 @@ a:hover { color: var(--color-brand-hover); }
 }
 
 .card-custom-body {
-    padding: var(--space-6);
+    padding: var(--space-5);
 }
 
 /* ============================================================
@@ -444,49 +446,37 @@ select.form-control, select.form-select, select.form-control-custom {
     background-color: var(--color-brand) !important;
     border-color: var(--color-brand) !important;
     color: #ffffff !important;
-    box-shadow: var(--shadow-brand) !important;
 }
 .btn-primary:hover {
     background-color: var(--color-brand-hover) !important;
     border-color: var(--color-brand-hover) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(67, 97, 238, 0.35) !important;
 }
 .btn-success {
     background-color: #22c55e !important;
     border-color: #22c55e !important;
     color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2) !important;
 }
 .btn-success:hover {
     background-color: #16a34a !important;
     border-color: #16a34a !important;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35) !important;
 }
 .btn-danger {
     background-color: #ef4444 !important;
     border-color: #ef4444 !important;
     color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2) !important;
 }
 .btn-danger:hover {
     background-color: #dc2626 !important;
     border-color: #dc2626 !important;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35) !important;
 }
 .btn-warning {
     background-color: #f59e0b !important;
     border-color: #f59e0b !important;
     color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2) !important;
 }
 .btn-warning:hover {
     background-color: #d97706 !important;
     border-color: #d97706 !important;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35) !important;
 }
 .btn-secondary {
     background-color: var(--color-bg-soft) !important;
@@ -496,7 +486,6 @@ select.form-control, select.form-select, select.form-control-custom {
 .btn-secondary:hover {
     background-color: #e9ecf2 !important;
     border-color: var(--color-border) !important;
-    transform: translateY(-1px);
 }
 
 /* ============================================================
@@ -588,19 +577,18 @@ select.form-control, select.form-select, select.form-control-custom {
     border: 1px solid var(--color-border) !important;
     border-radius: var(--radius-md) !important;
     box-shadow: var(--shadow-card) !important;
-    transition: transform var(--ease-fast), box-shadow var(--ease-fast) !important;
+    transition: border-color var(--ease-fast) !important;
 }
 .card:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: var(--shadow-hover) !important;
+    border-color: rgba(67, 97, 238, 0.20) !important;
 }
 .card-header {
     background-color: transparent !important;
     border-bottom: 1px solid var(--color-border) !important;
-    padding: var(--space-5) var(--space-6) !important;
+    padding: var(--space-4) var(--space-5) !important;
 }
 .card-body {
-    padding: var(--space-6) !important;
+    padding: var(--space-5) !important;
 }
 
 /* ============================================================
@@ -713,28 +701,53 @@ select.form-control, select.form-select, select.form-control-custom {
     font-size: 16px !important;
 }
 
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+}
+
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
 
+/* Sidebar backdrop overlay style */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(10, 12, 16, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 150;
+    opacity: 0;
+    transition: opacity var(--ease-normal);
+    pointer-events: none;
+}
+.sidebar.show ~ .sidebar-backdrop {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* ============================================================
    RESPONSIVE LAYOUT & SIDEBAR TOGGLE
    ============================================================ */
+
 @media (max-width: 991.98px) {
     .sidebar {
         transform: translateX(-100%);
         width: 80px;
-        box-shadow: 4px 0 24px rgba(35, 45, 66, 0.15);
+        box-shadow: 6px 0 28px rgba(35, 45, 66, 0.18);
+        z-index: 200;
     }
     .sidebar.show {
         transform: translateX(0) !important;
     }
     .main-content {
         margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     .navbar-custom {
         padding: 0 var(--space-4) !important;

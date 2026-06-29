@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class InvoiceResource
+ * Class QuotationResource
  * 
- * Maps invoice model to JSON response for API endpoints.
+ * Maps quotation model to JSON response for API endpoints.
  * 
  * @package App\Http\Resources
  */
-class InvoiceResource extends JsonResource
+class QuotationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -29,11 +29,7 @@ class InvoiceResource extends JsonResource
             'client_name' => $this->client ? $this->client->name : null,
             'client_company' => $this->client ? $this->client->company : null,
             'status' => $this->status instanceof \BackedEnum ? $this->status->value : $this->status,
-            'issue_date' => $this->issue_date,
-            'due_date' => $this->due_date,
-            'paid_at' => $this->paid_at,
-            'payment_method' => $this->payment_method,
-            'payment_proof' => $this->payment_proof ? url($this->payment_proof) : null,
+            'valid_until' => $this->valid_until,
             'notes' => $this->notes,
             'subtotal' => $this->subtotal,
             'discount_amount' => $this->discount_amount,
@@ -41,7 +37,7 @@ class InvoiceResource extends JsonResource
             'tax_amount' => $this->tax_amount,
             'total' => $this->total,
             'created_by_name' => $this->creator ? $this->creator->name : null,
-            'items' => InvoiceItemResource::collection($this->whenLoaded('items')),
+            'items' => QuotationItemResource::collection($this->whenLoaded('items')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -113,6 +113,9 @@
                 @endcan
             </ul>
         </aside>
+        
+        <!-- Sidebar backdrop overlay for mobile/tablet screen close operations -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="document.getElementById('sidebarMenu')?.classList.remove('show')"></div>
 
         <!-- Main Wrapper -->
         <div class="main-content flex-grow-1">
@@ -123,8 +126,7 @@
                         <i class="bi bi-list fs-4"></i>
                     </button>
                     <div>
-                        <div style="font-size:var(--font-size-xs);color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">CCTV RMI</div>
-                        <div style="font-size:var(--font-size-md);font-weight:700;color:var(--color-text-dark);line-height:1.2;">Sistem Manajemen CCTV & Keuangan</div>
+                        <div style="font-size:var(--font-size-md);font-weight:700;color:var(--color-text-dark);line-height:1.2;">CCTV RMI</div>
                     </div>
                 </div>
                 

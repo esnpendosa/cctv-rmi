@@ -26,7 +26,6 @@ class CameraResource extends JsonResource
             'name' => $this->name,
             'brand' => $this->brand,
             'model' => $this->model,
-            'ip_address' => $this->ip_address,
             'stream_key' => $this->stream_key,
             'stream_type' => $this->stream_type,
             'access' => $this->access,

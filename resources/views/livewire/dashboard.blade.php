@@ -2,7 +2,7 @@
     <!-- Metrics Row -->
     <div class="row">
         <!-- Total CCTV Card -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-sm-6 col-12">
             <div class="card-custom card-metric">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <!-- Online CCTV Card -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-sm-6 col-12">
             <div class="card-custom card-metric-success">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <!-- Offline CCTV Card -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-sm-6 col-12">
             <div class="card-custom card-metric-danger">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <!-- Low Stock Alerts Card -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-sm-6 col-12">
             <div class="card-custom card-metric-warning">
                 <div class="card-custom-body d-flex align-items-center justify-content-between">
                     <div>

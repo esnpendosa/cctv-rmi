@@ -42,6 +42,14 @@ class AppServiceProvider extends ServiceProvider
             \App\Events\AuditLogCreated::class,
             \App\Listeners\WriteAuditLog::class
         );
+
+        \Illuminate\Support\Facades\RateLimiter::for('api_standard', function (\Illuminate\Http\Request $request) {
+            return \Illuminate\Cache\RateLimiting\Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        \Illuminate\Support\Facades\RateLimiter::for('api_monitoring_live', function (\Illuminate\Http\Request $request) {
+            return \Illuminate\Cache\RateLimiting\Limit::perMinute(120)->by($request->user()?->id ?: $request->ip());
+        });
     }
 }
 
