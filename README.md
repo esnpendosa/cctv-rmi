@@ -110,3 +110,107 @@ Berikut variabel khusus CCTV yang dapat Anda konfigurasi di `.env`:
 | `CCTV_DEFAULT_TAX_RATE` | Tarif PPN bawaan untuk invoice/quotation (%) | `12` |
 | `CCTV_INVOICE_PREFIX` | Awalan nomor invoice tagihan | `INV` |
 | `CCTV_QUOTATION_PREFIX` | Awalan nomor penawaran harga | `QUO` |
+
+---
+
+## 📱 REST API untuk Integrasi Mobile (Flutter)
+
+Sistem ini menyediakan REST API produksi untuk dikonsumsi oleh aplikasi mobile (Flutter) dengan rate-limiting, otentikasi aman via Laravel Sanctum, caching performa tinggi berbasis Redis, dan proxy go2rtc untuk privasi IP kamera.
+
+### 🔑 1. Otentikasi Sanctum & Keamanan Media Stream
+*   **Login**: Kirim email dan password ke `POST /api/auth/login` untuk mendapatkan Bearer Token.
+*   **Header Authorization**: Kirim header `Authorization: Bearer <token>` pada setiap request.
+*   **Otentikasi via Query String**: Untuk pemutar video bawaan (native video players) di mobile yang sulit mengirimkan header, Anda dapat menggunakan query parameter `?token=<token>` pada endpoint video stream.
+
+---
+
+### 📡 2. Daftar Endpoint REST API
+
+Semua endpoint dilindungi oleh `auth:sanctum` kecuali endpoint Login.
+
+#### A. Otentikasi
+*   `POST /api/auth/login` — Login admin & dapatkan Bearer Token.
+*   `POST /api/auth/logout` — Hapus token saat ini.
+*   `GET /api/auth/me` — Profil user saat ini.
+
+#### B. Kamera CCTV & Streaming Proxy
+*   `GET /api/kamera` — Daftar kamera (bisa difilter `area_id` atau `location_id` dan `status`).
+*   `GET /api/kamera/{id}` — Detail kamera.
+*   `GET /api/kamera/status-summary` — Agregasi jumlah kamera online, offline, total per area.
+*   `PATCH /api/kamera/{id}/status` — Update status kamera manual (`online`, `offline`, `maintenance`).
+*   `GET /api/kamera/{id}/stream-info` — Dapatkan URL stream WebRTC & HTML proxy aman.
+*   `GET /api/kamera/{id}/stream` — Proxy player HTML go2rtc (menyembunyikan port/IP asli).
+*   `POST /api/kamera/{id}/webrtc` — Proxy handshake WebRTC SDP.
+
+#### C. Klien & Lokasi (Area)
+*   `GET /api/klien` — Daftar klien (pencarian & paginasi).
+*   `GET /api/klien/{id}` — Detail klien.
+*   `GET /api/klien/{id}/lokasi` — Lokasi yang dimiliki klien tersebut.
+*   `GET /api/area` — Daftar semua area dengan jumlah kamera per area.
+*   `GET /api/area/{id}/kamera` — Daftar kamera di area tertentu.
+
+#### D. Monitoring Kesehatan Kamera (Redis Cached)
+*   `GET /api/monitoring/live` — Status kamera real-time (Cached di Redis, TTL 30 detik). *Rate Limit: 120 req/menit.*
+*   `GET /api/monitoring/history/{kamera_id}` — Riwayat status up/down kamera (paginasi).
+*   `GET /api/monitoring/alert` — Kamera yang baru saja offline (dalam 1 jam terakhir).
+
+#### E. Inventaris (Stok Peralatan)
+*   `GET /api/inventaris` — Daftar barang (pencarian, paginasi, filter kategori).
+*   `GET /api/inventaris/{id}` — Detail barang.
+*   `GET /api/inventaris/stok-menipis` — Barang dengan stok di bawah minimum.
+
+#### F. Keuangan (Invoice & Penawaran)
+*   `GET /api/invoice` — Daftar invoice (filter status, bulan, tahun).
+*   `GET /api/invoice/{id}` — Detail invoice & rincian barang.
+*   `GET /api/invoice/statistik` — Statistik tagihan, pembayaran, outstanding bulan ini.
+*   `GET /api/quotation` — Daftar penawaran harga.
+*   `GET /api/quotation/{id}` — Detail penawaran harga & rincian barang.
+
+#### G. Laporan & Dashboard
+*   `GET /api/dashboard` — Ringkasan statistik (total kamera, online, alerts, nilai aset, revenue bulan ini).
+*   `GET /api/laporan/kamera-uptime` — Laporan persentase uptime dan status kamera.
+*   `GET /api/laporan/keuangan` — Laporan keuangan bulanan (billing, paid, outstanding).
+*   `GET /api/laporan/inventaris` — Laporan aset inventaris (total SKU, nilai aset, nilai retail, laba kotor).
+
+---
+
+### 📊 3. Format Response Standard
+
+Semua response dari API memiliki format JSON yang konsisten.
+
+#### Response Sukses (HTTP 200/201)
+```json
+{
+  "status": true,
+  "message": "Daftar klien berhasil diambil.",
+  "data": [
+    {
+      "id": 1,
+      "name": "Budi Santoso",
+      "company": "PT. Sinar Mas Utama"
+    }
+  ],
+  "meta": {
+    "current_page": 1,
+    "last_page": 1,
+    "per_page": 15,
+    "total": 1
+  }
+}
+```
+
+#### Response Error (HTTP 401/422/404)
+```json
+{
+  "status": false,
+  "message": "The email field is required. (and 1 more error)",
+  "errors": {
+    "email": [
+      "The email field is required."
+    ],
+    "password": [
+      "The password field is required."
+    ]
+  }
+}
+```
